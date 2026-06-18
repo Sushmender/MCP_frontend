@@ -1,0 +1,230 @@
+==============================================================
+  MCP RESEARCH FRONTEND — 3-DAY IMPLEMENTATION PLAN
+==============================================================
+GitHub Repo  : https://github.com/Sushmender/MCP_frontend
+Backend URL  : http://127.0.0.1:8000
+Stack        : React + TypeScript + Vite + TailwindCSS + shadcn/ui
+               React Router + TanStack Query + Zustand + Axios
+               React Hook Form + Zod
+Last Updated : 2026-06-18
+==============================================================
+
+LEGEND:
+  [ ] = Not started
+  [/] = In progress
+  [x] = Completed
+
+--------------------------------------------------------------
+DAY 1 — Foundation, Setup & GitHub
+--------------------------------------------------------------
+Goal: Working skeleton app pushed to GitHub with all tooling configured.
+
+GitHub & Git Setup
+  [x] Confirm git identity (user.name: Nomulasushmi, user.email: susminomula@gmail.com)
+  [x] Create empty GitHub repo: https://github.com/Sushmender/MCP_frontend
+  [ ] Initialize local git repo (git init)
+  [ ] Scaffold Vite + React + TypeScript project (npm create vite@latest)
+  [ ] Add .gitignore (node_modules, dist, .env.local)
+  [ ] Set remote origin and make first push
+
+Dependencies
+  [ ] Install TailwindCSS v3 + PostCSS + Autoprefixer
+  [ ] Install shadcn/ui and run init
+  [ ] Install React Router v6
+  [ ] Install TanStack Query v5
+  [ ] Install Zustand v4
+  [ ] Install Axios
+  [ ] Install React Hook Form + Zod
+  [ ] Install react-markdown + remark-gfm
+  [ ] Install Lucide React
+
+Configuration
+  [ ] Configure tailwind.config.ts (Inter font, dark mode, shadcn tokens)
+  [ ] Create .env.example with VITE_API_BASE_URL placeholder
+  [ ] Create .env.local with VITE_API_BASE_URL=http://127.0.0.1:8000
+  [ ] Configure vite.config.ts (path aliases: @/ → src/)
+  [ ] Add tsconfig.json path alias for @/
+
+TypeScript Types
+  [ ] Create src/types/api.types.ts
+      - ChatMessage, ToolCall, ChatResponse
+      - Tool, ToolInputSchema
+      - Prompt, PromptArgument, ExecutePromptResponse
+      - ResourceInfo, ResourceTemplate, ResourcesResponse
+      - ReadResourceResponse, Paper, PaperMap
+      - AppError, ValidationErrorDetail
+
+API Client
+  [ ] Create src/api/client.ts (Axios instance, 320s timeout, interceptors)
+  [ ] Stub out src/api/chat.api.ts
+  [ ] Stub out src/api/tools.api.ts
+  [ ] Stub out src/api/prompts.api.ts
+  [ ] Stub out src/api/resources.api.ts
+  [ ] Stub out src/api/health.api.ts
+
+Layout & Navigation
+  [ ] Create src/components/layout/AppLayout.tsx (sidebar + main)
+  [ ] Create src/components/layout/Sidebar.tsx (nav links)
+  [ ] Create src/components/layout/Header.tsx
+  [ ] Create src/components/layout/BackendStatusBanner.tsx (health check)
+
+Stores
+  [ ] Create src/store/app.store.ts (backendOnline, sidebarOpen)
+  [ ] Create src/store/chat.store.ts (chatHistory, isChatLoading, chatError)
+  [ ] Create src/store/workflow.store.ts (currentResult, isLoading, error)
+
+Routing
+  [ ] Set up React Router in App.tsx (4 routes + catch-all)
+  [ ] Create placeholder src/pages/ChatPage.tsx
+  [ ] Create placeholder src/pages/WorkflowsPage.tsx
+  [ ] Create placeholder src/pages/LibraryPage.tsx
+  [ ] Create placeholder src/pages/CapabilitiesPage.tsx
+  [ ] Create placeholder src/pages/ServiceErrorPage.tsx
+
+Backend Health
+  [ ] Implement useBackendHealth hook (checks GET / on startup)
+  [ ] Wire into AppLayout to show/hide BackendStatusBanner
+
+Architecture Doc
+  [ ] Create FRONTEND-ARCHITECTURE.md in project root
+
+Git Commit
+  [ ] git add -A && git commit -m "feat: project foundation and routing setup"
+  [ ] git push origin main
+
+--------------------------------------------------------------
+DAY 2 — Core Features (Chat + Workflows + API Layer)
+--------------------------------------------------------------
+Goal: The two most critical pages fully functional.
+
+API Service Layer
+  [ ] Complete src/api/chat.api.ts     → POST /api/chat
+  [ ] Complete src/api/prompts.api.ts  → GET /api/prompts + POST /api/prompts/execute
+  [ ] Complete src/api/tools.api.ts    → GET /api/tools
+  [ ] Complete src/api/resources.api.ts→ GET /api/resources + GET /api/resources/read
+
+Smart Query Router
+  [ ] Create src/utils/queryRouter.ts
+      - "@folders" → GET /api/resources
+      - "@<topic>" → GET /api/resources/read?uri=papers://<topic>
+      - "/prompts" → GET /api/prompts
+      - "/<name> key=val" → POST /api/prompts/execute
+      - default → POST /api/chat
+
+Utility Functions
+  [ ] Create src/utils/formatters.ts (topic display name, date formatter)
+  [ ] Create src/utils/errorParser.ts (normalize API errors)
+  [ ] Create src/constants/index.ts (route paths, loading messages)
+
+Shared Components
+  [ ] Create src/components/shared/MarkdownRenderer.tsx (react-markdown + remark-gfm)
+  [ ] Create src/components/shared/ElapsedTimer.tsx (live elapsed seconds)
+  [ ] Create src/components/shared/ErrorDisplay.tsx
+  [ ] Create src/components/shared/EmptyState.tsx
+
+Chat Page
+  [ ] Create ChatThread.tsx (scrollable list, auto-scroll on new message)
+  [ ] Create ChatMessage.tsx (user bubble right, AI bubble left)
+  [ ] Create ChatInput.tsx (multiline, Enter submit, disabled while loading)
+  [ ] Create LoadingMessage.tsx (animated dots + custom loading text)
+  [ ] Create ToolCallsAccordion.tsx (collapsible "AI used N tools" section)
+  [ ] Complete ChatPage.tsx (wire all components + queryRouter)
+  [ ] Implement useChat hook (useMutation + chatStore integration)
+  [ ] Handle smart query routing (display @/prompt responses inline)
+  [ ] Empty state: "Ask me anything about academic research…"
+
+Workflows Page
+  [ ] Create SummarizePaperForm.tsx (1 field: paper_id, Zod validation)
+  [ ] Create ComparePapersForm.tsx   (2 fields, tip warning about caching)
+  [ ] Create FindSummarizeForm.tsx   (topic + max_results 1-10 spinner)
+  [ ] Create WorkflowResult.tsx      (markdown response + tool calls)
+  [ ] Complete WorkflowsPage.tsx     (3-tab layout)
+  [ ] Implement useWorkflow hook (useMutation)
+
+Error Handling
+  [ ] Toast notifications for 404, 408, 500
+  [ ] 408 timeout: show detail tip text from backend
+  [ ] 503: redirect to ServiceErrorPage
+  [ ] Silent LLM config error: detect and display inline
+  [ ] Form validation: inline field errors (422)
+
+Git Commit
+  [ ] git add -A && git commit -m "feat: chat page and research workflows complete"
+  [ ] git push origin main
+
+--------------------------------------------------------------
+DAY 3 — Library, Capabilities & Production Polish
+--------------------------------------------------------------
+Goal: All pages complete, responsive, polished, production-ready.
+
+Library Page
+  [ ] Fetch topic list: GET /api/resources/read?uri=papers://list
+  [ ] JSON.parse(response.content) → topic map
+  [ ] Create LibraryGrid.tsx (responsive card grid)
+  [ ] Create TopicCard.tsx (topic name + paper count, hover effect)
+  [ ] On topic click: fetch GET /api/resources/read?uri=papers://{topic}/info
+  [ ] Create PaperCard.tsx
+      - Title, authors list, published date
+      - Truncated abstract (3 lines, expand on click)
+      - "View PDF" button → opens arxiv URL in new tab
+  [ ] Display topic names with underscores → spaces + Title Case
+  [ ] Empty state: "No papers cached yet. Use chat to search first."
+  [ ] Implement useLibrary hook (useQuery + caching by topic)
+  [ ] Loading skeletons for topic grid and paper list
+
+Capabilities Page
+  [ ] Fetch tools, prompts, resources in parallel (3 x useQuery)
+  [ ] Create ToolCard.tsx
+      - Tool name + description
+      - Parameter table (name, type, required, description)
+  [ ] Create PromptCard.tsx
+      - Prompt name + description
+      - Arguments list with required/optional badges
+      - "Use This Prompt" button → navigates to Workflows
+  [ ] Create ResourceCard.tsx (URI + description + MIME type)
+  [ ] Complete CapabilitiesPage.tsx (3 sections)
+
+Service Error Page
+  [ ] ServiceErrorPage.tsx with retry button (re-checks GET /)
+  [ ] Auto-redirect on 503 from any endpoint
+
+UI Polish
+  [ ] Dark mode (TailwindCSS dark: classes, system preference default)
+  [ ] Responsive layout (mobile: sidebar collapses to bottom nav)
+  [ ] Smooth page transitions (fade-in on route change)
+  [ ] Card hover micro-animations (translateY + shadow)
+  [ ] Loading skeletons (Skeleton component from shadcn/ui)
+  [ ] Consistent spacing + typography across all pages
+  [ ] Tooltip on tool parameter chips
+  [ ] Syntax highlighting in markdown code blocks
+
+Final Cleanup
+  [ ] Run npx tsc --noEmit → fix all TypeScript errors
+  [ ] Run npm run build → verify zero build errors
+  [ ] Remove all console.log statements
+  [ ] Add JSDoc comments to API functions
+  [ ] Update FRONTEND-ARCHITECTURE.md with final structure
+  [ ] Update Day-by-Day-Plan.txt (all boxes ticked)
+
+Manual Test Checklist
+  [ ] Chat: "find papers on transformers" → see markdown + tool calls
+  [ ] Chat: "@folders" → resources list inline
+  [ ] Chat: "/prompts" → prompts list inline
+  [ ] Workflows → Summarize: paper ID 1706.03762
+  [ ] Workflows → Compare: two paper IDs
+  [ ] Workflows → Find & Summarize: topic "RAG", max 3
+  [ ] Library: load topics → click topic → see papers → View PDF link
+  [ ] Capabilities: tools, prompts, resources all load
+  [ ] Stop backend → offline banner appears
+  [ ] Restart backend → online status restores
+  [ ] Mobile view: sidebar collapses correctly
+  [ ] Dark mode: toggle and verify all pages
+
+Git Commits
+  [ ] git add -A && git commit -m "feat: library and capabilities pages complete"
+  [ ] git add -A && git commit -m "chore: production polish and final cleanup"
+  [ ] git push origin main
+
+==============================================================
+  END OF PLAN
+==============================================================
