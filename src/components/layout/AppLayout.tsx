@@ -1,9 +1,10 @@
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store/app.store';
-import { BackendStatusBanner } from './BackendStatusBanner';
-import { Sidebar } from './Sidebar';
-import { Header } from './Header';
+import { BackendStatusBanner } from '@/components/layout/BackendStatusBanner';
+import { Sidebar } from '@/components/layout/Sidebar';
+import { Header } from '@/components/layout/Header';
 import { useBackendHealth } from '@/hooks/useBackendHealth';
+import { ToastContainer } from '@/components/shared/ToastContainer';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -16,6 +17,9 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
+      {/* Global Toasts */}
+      <ToastContainer />
+
       {/* Sidebar */}
       <Sidebar />
 

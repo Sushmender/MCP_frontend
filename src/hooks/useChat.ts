@@ -5,7 +5,7 @@ import { parseApiError, isServiceUnavailable } from '@/utils/errorParser';
 import { generateId } from '@/utils/formatters';
 import type { ChatMessage, ChatResponse, QueryResult } from '@/types/api.types';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/constants';
+import { toast } from '@/store/toast.store';
 
 /**
  * Manages sending a chat message (or any smart-routed query).
@@ -54,10 +54,11 @@ export function useChat() {
 
     onError: (error: unknown) => {
       setLoading(false);
-      if (isServiceUnavailable(error)) {
-        navigate(ROUTES.CAPABILITIES); // show a service unavailable indicator
-      }
       const message = parseApiError(error);
+      toast.error(message);
+      if (isServiceUnavailable(error)) {
+        navigate('/service-error');
+      }
       setError(message);
       updateLastMessage({
         content: `⚠️ ${message}`,

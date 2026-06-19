@@ -1,8 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { promptsApi } from '@/api/prompts.api';
 import { useWorkflowStore } from '@/store/workflow.store';
-import { parseApiError } from '@/utils/errorParser';
+import { parseApiError, isServiceUnavailable } from '@/utils/errorParser';
 import type { ExecutePromptResponse } from '@/types/api.types';
+import { useNavigate } from 'react-router-dom';
+import { toast } from '@/store/toast.store';
 
 interface ExecuteWorkflowArgs {
   promptName: string;
@@ -12,6 +14,7 @@ interface ExecuteWorkflowArgs {
 /** Manages executing a named research workflow prompt. */
 export function useWorkflow() {
   const { setResult, setLoading, setError } = useWorkflowStore();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: ({ promptName, args }: ExecuteWorkflowArgs) =>
@@ -34,7 +37,12 @@ export function useWorkflow() {
 
     onError: (error: unknown) => {
       setLoading(false);
-      setError(parseApiError(error));
+      const message = parseApiError(error);
+      toast.error(message);
+      if (isServiceUnavailable(error)) {
+        navigate('/service-error');
+      }
+      setError(message);
     },
   });
 

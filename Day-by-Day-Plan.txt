@@ -22,31 +22,31 @@ Goal: Working skeleton app pushed to GitHub with all tooling configured.
 GitHub & Git Setup
   [x] Confirm git identity (user.name: Nomulasushmi, user.email: susminomula@gmail.com)
   [x] Create empty GitHub repo: https://github.com/Sushmender/MCP_frontend
-  [ ] Initialize local git repo (git init)
-  [ ] Scaffold Vite + React + TypeScript project (npm create vite@latest)
-  [ ] Add .gitignore (node_modules, dist, .env.local)
-  [ ] Set remote origin and make first push
+  [x] Initialize local git repo (git init)
+  [x] Scaffold Vite + React + TypeScript project (manual, files created directly)
+  [x] Add .gitignore (node_modules, dist, .env.local)
+  [x] Set remote origin and make first push
 
 Dependencies
-  [ ] Install TailwindCSS v3 + PostCSS + Autoprefixer
-  [ ] Install shadcn/ui and run init
-  [ ] Install React Router v6
-  [ ] Install TanStack Query v5
-  [ ] Install Zustand v4
-  [ ] Install Axios
-  [ ] Install React Hook Form + Zod
-  [ ] Install react-markdown + remark-gfm
-  [ ] Install Lucide React
+  [x] Install TailwindCSS v3 + PostCSS + Autoprefixer
+  [x] Install shadcn/ui Radix primitives (accordion, dialog, tabs, toast, etc.)
+  [x] Install React Router v6
+  [x] Install TanStack Query v5
+  [x] Install Zustand v4
+  [x] Install Axios
+  [x] Install React Hook Form + Zod
+  [x] Install react-markdown + remark-gfm
+  [x] Install Lucide React
 
 Configuration
-  [ ] Configure tailwind.config.ts (Inter font, dark mode, shadcn tokens)
-  [ ] Create .env.example with VITE_API_BASE_URL placeholder
-  [ ] Create .env.local with VITE_API_BASE_URL=http://127.0.0.1:8000
-  [ ] Configure vite.config.ts (path aliases: @/ → src/)
-  [ ] Add tsconfig.json path alias for @/
+  [x] Configure tailwind.config.ts (Inter font, dark mode, shadcn tokens)
+  [x] Create .env.example with VITE_API_BASE_URL placeholder
+  [x] Create .env.local with VITE_API_BASE_URL=http://127.0.0.1:8000
+  [x] Configure vite.config.ts (path aliases: @/ → src/)
+  [x] Add tsconfig.json path alias for @/
 
 TypeScript Types
-  [ ] Create src/types/api.types.ts
+  [x] Create src/types/api.types.ts
       - ChatMessage, ToolCall, ChatResponse
       - Tool, ToolInputSchema
       - Prompt, PromptArgument, ExecutePromptResponse
@@ -55,42 +55,63 @@ TypeScript Types
       - AppError, ValidationErrorDetail
 
 API Client
-  [ ] Create src/api/client.ts (Axios instance, 320s timeout, interceptors)
-  [ ] Stub out src/api/chat.api.ts
-  [ ] Stub out src/api/tools.api.ts
-  [ ] Stub out src/api/prompts.api.ts
-  [ ] Stub out src/api/resources.api.ts
-  [ ] Stub out src/api/health.api.ts
+  [x] Create src/api/client.ts (Axios instance, 320s timeout, interceptors)
+  [x] Stub out src/api/chat.api.ts
+  [x] Stub out src/api/tools.api.ts
+  [x] Stub out src/api/prompts.api.ts
+  [x] Stub out src/api/resources.api.ts
+  [x] Stub out src/api/health.api.ts
 
 Layout & Navigation
-  [ ] Create src/components/layout/AppLayout.tsx (sidebar + main)
-  [ ] Create src/components/layout/Sidebar.tsx (nav links)
-  [ ] Create src/components/layout/Header.tsx
-  [ ] Create src/components/layout/BackendStatusBanner.tsx (health check)
+  [x] Create src/components/layout/AppLayout.tsx (sidebar + main)
+  [x] Create src/components/layout/Sidebar.tsx (nav links)
+  [x] Create src/components/layout/Header.tsx
+  [x] Create src/components/layout/BackendStatusBanner.tsx (health check)
 
 Stores
-  [ ] Create src/store/app.store.ts (backendOnline, sidebarOpen)
-  [ ] Create src/store/chat.store.ts (chatHistory, isChatLoading, chatError)
-  [ ] Create src/store/workflow.store.ts (currentResult, isLoading, error)
+  [x] Create src/store/app.store.ts (backendOnline, sidebarOpen)
+  [x] Create src/store/chat.store.ts (chatHistory, isChatLoading, chatError)
+  [x] Create src/store/workflow.store.ts (currentResult, isLoading, error)
 
 Routing
-  [ ] Set up React Router in App.tsx (4 routes + catch-all)
-  [ ] Create placeholder src/pages/ChatPage.tsx
-  [ ] Create placeholder src/pages/WorkflowsPage.tsx
-  [ ] Create placeholder src/pages/LibraryPage.tsx
-  [ ] Create placeholder src/pages/CapabilitiesPage.tsx
-  [ ] Create placeholder src/pages/ServiceErrorPage.tsx
+  [x] Set up React Router in App.tsx (4 routes + catch-all)
+  [x] Create placeholder src/pages/ChatPage.tsx
+  [x] Create placeholder src/pages/WorkflowsPage.tsx
+  [x] Create placeholder src/pages/LibraryPage.tsx
+  [x] Create placeholder src/pages/CapabilitiesPage.tsx
+  [x] Create placeholder src/pages/ServiceErrorPage.tsx
 
 Backend Health
-  [ ] Implement useBackendHealth hook (checks GET / on startup)
-  [ ] Wire into AppLayout to show/hide BackendStatusBanner
+  [x] Implement useBackendHealth hook (checks GET / on startup)
+  [x] Wire into AppLayout to show/hide BackendStatusBanner
 
 Architecture Doc
-  [ ] Create FRONTEND-ARCHITECTURE.md in project root
+  [x] Create FRONTEND-ARCHITECTURE.md in project root
+
+Shared Components (bonus - built ahead of Day 2)
+  [x] Create src/components/shared/MarkdownRenderer.tsx
+  [x] Create src/components/shared/ElapsedTimer.tsx
+  [x] Create src/components/shared/ErrorDisplay.tsx
+  [x] Create src/components/shared/EmptyState.tsx
+
+Hooks (bonus - built ahead of Day 2)
+  [x] Create src/hooks/useChat.ts
+  [x] Create src/hooks/useWorkflow.ts
+  [x] Create src/hooks/useLibrary.ts
+  [x] Create src/hooks/useCapabilities.ts
+
+Utils (bonus - built ahead of Day 2)
+  [x] Create src/utils/queryRouter.ts
+  [x] Create src/utils/formatters.ts
+  [x] Create src/utils/errorParser.ts
+
+Build Verification
+  [x] npm run build → PASSED (1669 modules, 0 errors)
 
 Git Commit
-  [ ] git add -A && git commit -m "feat: project foundation and routing setup"
-  [ ] git push origin main
+  [x] git add -A
+  [x] git commit -m "feat: project foundation and routing setup" (56 files)
+  [x] git push origin master → https://github.com/Sushmender/MCP_frontend
 
 --------------------------------------------------------------
 DAY 2 — Core Features (Chat + Workflows + API Layer)
@@ -98,13 +119,13 @@ DAY 2 — Core Features (Chat + Workflows + API Layer)
 Goal: The two most critical pages fully functional.
 
 API Service Layer
-  [ ] Complete src/api/chat.api.ts     → POST /api/chat
-  [ ] Complete src/api/prompts.api.ts  → GET /api/prompts + POST /api/prompts/execute
-  [ ] Complete src/api/tools.api.ts    → GET /api/tools
-  [ ] Complete src/api/resources.api.ts→ GET /api/resources + GET /api/resources/read
+  [x] Complete src/api/chat.api.ts     → POST /api/chat
+  [x] Complete src/api/prompts.api.ts  → GET /api/prompts + POST /api/prompts/execute
+  [x] Complete src/api/tools.api.ts    → GET /api/tools
+  [x] Complete src/api/resources.api.ts→ GET /api/resources + GET /api/resources/read
 
 Smart Query Router
-  [ ] Create src/utils/queryRouter.ts
+  [x] Create src/utils/queryRouter.ts
       - "@folders" → GET /api/resources
       - "@<topic>" → GET /api/resources/read?uri=papers://<topic>
       - "/prompts" → GET /api/prompts
@@ -112,45 +133,45 @@ Smart Query Router
       - default → POST /api/chat
 
 Utility Functions
-  [ ] Create src/utils/formatters.ts (topic display name, date formatter)
-  [ ] Create src/utils/errorParser.ts (normalize API errors)
-  [ ] Create src/constants/index.ts (route paths, loading messages)
+  [x] Create src/utils/formatters.ts (topic display name, date formatter)
+  [x] Create src/utils/errorParser.ts (normalize API errors)
+  [x] Create src/constants/index.ts (route paths, loading messages)
 
 Shared Components
-  [ ] Create src/components/shared/MarkdownRenderer.tsx (react-markdown + remark-gfm)
-  [ ] Create src/components/shared/ElapsedTimer.tsx (live elapsed seconds)
-  [ ] Create src/components/shared/ErrorDisplay.tsx
-  [ ] Create src/components/shared/EmptyState.tsx
+  [x] Create src/components/shared/MarkdownRenderer.tsx (react-markdown + remark-gfm)
+  [x] Create src/components/shared/ElapsedTimer.tsx (live elapsed seconds)
+  [x] Create src/components/shared/ErrorDisplay.tsx
+  [x] Create src/components/shared/EmptyState.tsx
 
 Chat Page
-  [ ] Create ChatThread.tsx (scrollable list, auto-scroll on new message)
-  [ ] Create ChatMessage.tsx (user bubble right, AI bubble left)
-  [ ] Create ChatInput.tsx (multiline, Enter submit, disabled while loading)
-  [ ] Create LoadingMessage.tsx (animated dots + custom loading text)
-  [ ] Create ToolCallsAccordion.tsx (collapsible "AI used N tools" section)
-  [ ] Complete ChatPage.tsx (wire all components + queryRouter)
-  [ ] Implement useChat hook (useMutation + chatStore integration)
-  [ ] Handle smart query routing (display @/prompt responses inline)
-  [ ] Empty state: "Ask me anything about academic research…"
+  [x] Create ChatThread.tsx (scrollable list, auto-scroll on new message)
+  [x] Create ChatMessage.tsx (user bubble right, AI bubble left)
+  [x] Create ChatInput.tsx (multiline, Enter submit, disabled while loading)
+  [x] Create LoadingMessage.tsx (animated dots + custom loading text)
+  [x] Create ToolCallsAccordion.tsx (collapsible "AI used N tools" section)
+  [x] Complete ChatPage.tsx (wire all components + queryRouter)
+  [x] Implement useChat hook (useMutation + chatStore integration)
+  [x] Handle smart query routing (display @/prompt responses inline)
+  [x] Empty state: "Ask me anything about academic research…"
 
 Workflows Page
-  [ ] Create SummarizePaperForm.tsx (1 field: paper_id, Zod validation)
-  [ ] Create ComparePapersForm.tsx   (2 fields, tip warning about caching)
-  [ ] Create FindSummarizeForm.tsx   (topic + max_results 1-10 spinner)
-  [ ] Create WorkflowResult.tsx      (markdown response + tool calls)
-  [ ] Complete WorkflowsPage.tsx     (3-tab layout)
-  [ ] Implement useWorkflow hook (useMutation)
+  [x] Create SummarizePaperForm.tsx (1 field: paper_id, Zod validation)
+  [x] Create ComparePapersForm.tsx   (2 fields, tip warning about caching)
+  [x] Create FindSummarizeForm.tsx   (topic + max_results 1-10 spinner)
+  [x] Create WorkflowResult.tsx      (markdown response + tool calls)
+  [x] Complete WorkflowsPage.tsx     (3-tab layout)
+  [x] Implement useWorkflow hook (useMutation)
 
 Error Handling
-  [ ] Toast notifications for 404, 408, 500
-  [ ] 408 timeout: show detail tip text from backend
-  [ ] 503: redirect to ServiceErrorPage
-  [ ] Silent LLM config error: detect and display inline
-  [ ] Form validation: inline field errors (422)
+  [x] Toast notifications for 404, 408, 500
+  [x] 408 timeout: show detail tip text from backend
+  [x] 503: redirect to ServiceErrorPage
+  [x] Silent LLM config error: detect and display inline
+  [x] Form validation: inline field errors (422)
 
 Git Commit
-  [ ] git add -A && git commit -m "feat: chat page and research workflows complete"
-  [ ] git push origin main
+  [x] git add -A && git commit -m "feat: chat page and research workflows complete"
+  [x] git push origin master
 
 --------------------------------------------------------------
 DAY 3 — Library, Capabilities & Production Polish
