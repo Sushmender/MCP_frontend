@@ -25,7 +25,7 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'relative flex flex-col bg-card border-r border-border transition-all duration-300 shrink-0',
+        'relative flex-col bg-card border-r border-border transition-all duration-300 shrink-0 hidden sm:flex',
         sidebarOpen ? 'w-60' : 'w-16',
       )}
     >

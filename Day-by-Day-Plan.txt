@@ -179,53 +179,53 @@ DAY 3 — Library, Capabilities & Production Polish
 Goal: All pages complete, responsive, polished, production-ready.
 
 Library Page
-  [ ] Fetch topic list: GET /api/resources/read?uri=papers://list
-  [ ] JSON.parse(response.content) → topic map
-  [ ] Create LibraryGrid.tsx (responsive card grid)
-  [ ] Create TopicCard.tsx (topic name + paper count, hover effect)
-  [ ] On topic click: fetch GET /api/resources/read?uri=papers://{topic}/info
-  [ ] Create PaperCard.tsx
+  [x] Fetch topic list: GET /api/resources/read?uri=papers://list
+  [x] JSON.parse(response.content) → topic map
+  [x] Create LibraryGrid.tsx (responsive card grid)
+  [x] Create TopicCard.tsx (topic name + paper count, hover effect)
+  [x] On topic click: fetch GET /api/resources/read?uri=papers://{topic}/info
+  [x] Create PaperCard.tsx
       - Title, authors list, published date
       - Truncated abstract (3 lines, expand on click)
       - "View PDF" button → opens arxiv URL in new tab
-  [ ] Display topic names with underscores → spaces + Title Case
-  [ ] Empty state: "No papers cached yet. Use chat to search first."
-  [ ] Implement useLibrary hook (useQuery + caching by topic)
-  [ ] Loading skeletons for topic grid and paper list
+  [x] Display topic names with underscores → spaces + Title Case
+  [x] Empty state: "No papers cached yet. Use chat to search first."
+  [x] Implement useLibrary hook (useQuery + caching by topic)
+  [x] Loading skeletons for topic grid and paper list
 
 Capabilities Page
-  [ ] Fetch tools, prompts, resources in parallel (3 x useQuery)
-  [ ] Create ToolCard.tsx
+  [x] Fetch tools, prompts, resources in parallel (3 x useQuery)
+  [x] Create ToolCard.tsx
       - Tool name + description
       - Parameter table (name, type, required, description)
-  [ ] Create PromptCard.tsx
+  [x] Create PromptCard.tsx
       - Prompt name + description
       - Arguments list with required/optional badges
       - "Use This Prompt" button → navigates to Workflows
-  [ ] Create ResourceCard.tsx (URI + description + MIME type)
-  [ ] Complete CapabilitiesPage.tsx (3 sections)
+  [x] Create ResourceCard.tsx (URI + description + MIME type)
+  [x] Complete CapabilitiesPage.tsx (3 sections)
 
 Service Error Page
-  [ ] ServiceErrorPage.tsx with retry button (re-checks GET /)
-  [ ] Auto-redirect on 503 from any endpoint
+  [x] ServiceErrorPage.tsx with retry button (re-checks GET /)
+  [x] Auto-redirect on 503 from any endpoint
 
 UI Polish
-  [ ] Dark mode (TailwindCSS dark: classes, system preference default)
-  [ ] Responsive layout (mobile: sidebar collapses to bottom nav)
-  [ ] Smooth page transitions (fade-in on route change)
-  [ ] Card hover micro-animations (translateY + shadow)
-  [ ] Loading skeletons (Skeleton component from shadcn/ui)
-  [ ] Consistent spacing + typography across all pages
-  [ ] Tooltip on tool parameter chips
-  [ ] Syntax highlighting in markdown code blocks
+  [x] Dark mode (TailwindCSS dark: classes, system preference default)
+  [x] Responsive layout (mobile: sidebar collapses to bottom nav)
+  [x] Smooth page transitions (fade-in on route change)
+  [x] Card hover micro-animations (translateY + shadow)
+  [x] Loading skeletons (Skeleton component from shadcn/ui)
+  [x] Consistent spacing + typography across all pages
+  [x] Tooltip on tool parameter chips
+  [x] Syntax highlighting in markdown code blocks
 
 Final Cleanup
-  [ ] Run npx tsc --noEmit → fix all TypeScript errors
-  [ ] Run npm run build → verify zero build errors
-  [ ] Remove all console.log statements
-  [ ] Add JSDoc comments to API functions
-  [ ] Update FRONTEND-ARCHITECTURE.md with final structure
-  [ ] Update Day-by-Day-Plan.txt (all boxes ticked)
+  [x] Run npx tsc --noEmit → fix all TypeScript errors
+  [x] Run npm run build → verify zero build errors
+  [x] Remove all console.log statements
+  [x] Add JSDoc comments to API functions
+  [x] Update FRONTEND-ARCHITECTURE.md with final structure
+  [x] Update Day-by-Day-Plan.txt (all boxes ticked)
 
 Manual Test Checklist
   [ ] Chat: "find papers on transformers" → see markdown + tool calls
@@ -242,9 +242,9 @@ Manual Test Checklist
   [ ] Dark mode: toggle and verify all pages
 
 Git Commits
-  [ ] git add -A && git commit -m "feat: library and capabilities pages complete"
-  [ ] git add -A && git commit -m "chore: production polish and final cleanup"
-  [ ] git push origin main
+  [x] git add -A && git commit -m "feat: library and capabilities pages complete"
+  [x] git add -A && git commit -m "chore: production polish and final cleanup"
+  [x] git push origin master
 
 ==============================================================
   END OF PLAN
