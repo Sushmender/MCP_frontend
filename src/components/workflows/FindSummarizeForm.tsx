@@ -24,7 +24,7 @@ export function FindSummarizeForm({ onSubmit, isLoading }: FindSummarizeFormProp
   const handleFormSubmit = (data: FormData) => {
     onSubmit(PROMPT_NAMES.FIND_AND_SUMMARIZE, {
       topic: data.topic.trim(),
-      max_results: Number(data.max_results),
+      max_results: String(data.max_results),
     });
   };
 

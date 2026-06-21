@@ -18,6 +18,7 @@ export const LOADING_MESSAGES = {
   summarize: 'Summarizing paper…',
   compare: 'Comparing papers… this may take a few minutes',
   find_and_summarize: 'Searching arXiv and summarizing papers…',
+  fetch: 'Fetching URL and reading content…',
   library: 'Loading papers…',
   capabilities: 'Loading capabilities…',
 } as const;
@@ -30,6 +31,7 @@ export const PROMPT_NAMES = {
   SUMMARIZE: 'summarize_paper',
   COMPARE: 'compare_papers',
   FIND_AND_SUMMARIZE: 'find_and_summarize',
+  FETCH: 'fetch_url',
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -21,7 +21,7 @@ export interface ChatMessage {
   timestamp: number;
   isLoading?: boolean;
   /** Type of result for smart query routing */
-  resultType?: 'chat' | 'resources_list' | 'resource' | 'prompts_list' | 'prompt_result';
+  resultType?: 'chat' | 'resources_list' | 'resource' | 'prompts_list' | 'prompt_result' | 'folders_list';
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -172,7 +172,8 @@ export type QueryResultType =
   | 'resources_list'
   | 'resource'
   | 'prompts_list'
-  | 'prompt_result';
+  | 'prompt_result'
+  | 'folders_list';
 
 export interface QueryResult {
   type: QueryResultType;
@@ -184,7 +185,7 @@ export interface QueryResult {
 // Workflow Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type WorkflowType = 'summarize' | 'compare' | 'find_and_summarize';
+export type WorkflowType = 'summarize' | 'compare' | 'find_and_summarize' | 'fetch';
 
 export interface WorkflowResult {
   promptName: string;

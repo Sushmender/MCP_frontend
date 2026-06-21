@@ -1,9 +1,11 @@
-import { BookOpen, Scale, FileSearch, RefreshCw } from 'lucide-react';
+import { BookOpen, Scale, FileSearch, RefreshCw, Globe } from 'lucide-react';
 import { useWorkflowStore } from '@/store/workflow.store';
 import { useWorkflow } from '@/hooks/useWorkflow';
+import { useFetchWorkflow } from '@/hooks/useFetchWorkflow';
 import { SummarizePaperForm } from '@/components/workflows/SummarizePaperForm';
 import { ComparePapersForm } from '@/components/workflows/ComparePapersForm';
 import { FindSummarizeForm } from '@/components/workflows/FindSummarizeForm';
+import { FetchUrlForm } from '@/components/workflows/FetchUrlForm';
 import { WorkflowResult } from '@/components/workflows/WorkflowResult';
 import type { WorkflowType } from '@/types/api.types';
 import { cn } from '@/lib/utils';
@@ -11,14 +13,20 @@ import { cn } from '@/lib/utils';
 export function WorkflowsPage() {
   const { activeTab, currentResult, isLoading, error, setActiveTab } = useWorkflowStore();
   const { execute } = useWorkflow();
+  const fetchWorkflow = useFetchWorkflow();
 
+  // Unified submit handler for prompt-based workflows
   const handleExecute = (promptName: string, args: Record<string, unknown>) => {
-    execute({ promptName, args });
+    if (activeTab === 'fetch') {
+      // Fetch tab calls the real HTTP tool via chat, not via prompts API
+      fetchWorkflow.execute({ url: args['url'] as string });
+    } else {
+      execute({ promptName, args });
+    }
   };
 
   const handleRetry = () => {
     if (!currentResult && !error) return;
-    // We can't re-trigger without the form inputs, so we let the user clear and re-fill
     useWorkflowStore.getState().reset();
   };
 
@@ -26,7 +34,10 @@ export function WorkflowsPage() {
     { id: 'summarize' as WorkflowType, label: 'Summarize Paper', icon: BookOpen, desc: 'Analyze a single study' },
     { id: 'compare' as WorkflowType, label: 'Compare Papers', icon: Scale, desc: 'Cross-analyze two studies' },
     { id: 'find_and_summarize' as WorkflowType, label: 'Find & Summarize', icon: FileSearch, desc: 'Search arXiv by topic' },
+    { id: 'fetch' as WorkflowType, label: 'Fetch', icon: Globe, desc: 'Read any URL' },
   ];
+
+  const effectiveLoading = isLoading || fetchWorkflow.isLoading;
 
   return (
     <div className="p-6 h-full flex flex-col gap-6 bg-background/30 backdrop-blur-md overflow-auto">
@@ -60,7 +71,7 @@ export function WorkflowsPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  disabled={isLoading}
+                  disabled={effectiveLoading}
                   className={cn(
                     'w-full flex items-start gap-3 rounded-lg px-3.5 py-3 text-left transition-all duration-250 border border-transparent disabled:opacity-50',
                     isActive
@@ -95,13 +106,16 @@ export function WorkflowsPage() {
           {/* Active Form Box */}
           <div className="p-6 rounded-xl border border-border bg-card/65 backdrop-blur-sm shadow-sm">
             {activeTab === 'summarize' && (
-              <SummarizePaperForm onSubmit={handleExecute} isLoading={isLoading} />
+              <SummarizePaperForm onSubmit={handleExecute} isLoading={effectiveLoading} />
             )}
             {activeTab === 'compare' && (
-              <ComparePapersForm onSubmit={handleExecute} isLoading={isLoading} />
+              <ComparePapersForm onSubmit={handleExecute} isLoading={effectiveLoading} />
             )}
             {activeTab === 'find_and_summarize' && (
-              <FindSummarizeForm onSubmit={handleExecute} isLoading={isLoading} />
+              <FindSummarizeForm onSubmit={handleExecute} isLoading={effectiveLoading} />
+            )}
+            {activeTab === 'fetch' && (
+              <FetchUrlForm onSubmit={handleExecute} isLoading={effectiveLoading} />
             )}
           </div>
         </div>
@@ -110,7 +124,7 @@ export function WorkflowsPage() {
         <div className="lg:col-span-7 h-full flex flex-col min-h-[350px]">
           <WorkflowResult
             result={currentResult}
-            isLoading={isLoading}
+            isLoading={effectiveLoading}
             error={error}
             activeTab={activeTab}
             onRetry={handleRetry}

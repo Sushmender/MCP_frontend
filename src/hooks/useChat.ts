@@ -103,6 +103,35 @@ function formatQueryResult(result: QueryResult): string {
       ];
       return lines.join('\n');
     }
+    case 'folders_list': {
+      // data.content is a JSON string: { topic: [paper_id, …], … }
+      const data = result.data as { content: string };
+      try {
+        const topicMap = JSON.parse(data.content) as Record<string, string[]>;
+        const topics = Object.entries(topicMap);
+        if (topics.length === 0) {
+          return (
+            '**No folders found yet.**\n\n' +
+            'Run a search first — e.g. type `find papers on RAG` in the chat.\n' +
+            'Once papers are saved, use `@folders` to browse them.'
+          );
+        }
+        const lines = [
+          `**Stored Topic Folders** (${topics.length} found)\n`,
+          '| Topic | Papers | Command |',
+          '|---|---|---|',
+          ...topics.map(
+            ([topic, ids]) =>
+              `| ${topic.replace(/_/g, ' ')} | ${ids.length} | \`@${topic}\` |`,
+          ),
+          '',
+          '_Tip: type_ `@<topic>` _to read all papers for that folder._',
+        ];
+        return lines.join('\n');
+      } catch {
+        return data.content;
+      }
+    }
     case 'resource': {
       const data = result.data as { content: string };
       try {

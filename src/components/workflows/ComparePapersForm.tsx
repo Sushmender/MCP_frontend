@@ -23,8 +23,8 @@ export function ComparePapersForm({ onSubmit, isLoading }: ComparePapersFormProp
 
   const handleFormSubmit = (data: FormData) => {
     onSubmit(PROMPT_NAMES.COMPARE, {
-      paper_id1: data.paper_id1.trim(),
-      paper_id2: data.paper_id2.trim(),
+      paper_id_1: data.paper_id1.trim(),
+      paper_id_2: data.paper_id2.trim(),
     });
   };
 
